@@ -16,14 +16,9 @@ kotlin {
     jvm("jvmBrowser")
     js {
         browser {
-            dceTask {
-                keep.addAll(
-                        "lets-plot-plot-demo.jetbrains.datalore.plotDemo.component.axisComponentDemo",
-                        "lets-plot-plot-demo.jetbrains.datalore.plotDemo.plotAssembler.linearRegressionDemo",
-                        "lets-plot-plot-demo.jetbrains.datalore.plotDemo.plotAssembler.loessRegressionDemo",
-                )
-            }
         }
+
+        binaries.executable()
     }
 
     sourceSets {
@@ -123,5 +118,9 @@ jvmBrowserJar {
 }
 
 jvmJfxJar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+jsJar {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }

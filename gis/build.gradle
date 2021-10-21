@@ -8,13 +8,9 @@ plugins {
 }
 
 kotlin {
-    sourceSets.all {
-        languageSettings.optIn('kotlinx.coroutines.ObsoleteCoroutinesApi')
-        languageSettings.optIn('io.ktor.util.KtorExperimentalAPI')
-    }
 
     jvm()
-    js() {
+    js {
         browser {}
     }
 
@@ -23,7 +19,6 @@ kotlin {
             dependencies {
                 implementation kotlin('stdlib-common')
                 implementation "io.ktor:ktor-client-websockets:$ktor_version"
-                implementation "io.ktor:ktor-client-cio:$ktor_version"
                 implementation project(':base-portable')
                 implementation project(':base')
             }
@@ -37,6 +32,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation kotlin('stdlib-jdk8')
+                implementation "io.ktor:ktor-client-cio:$ktor_version"
             }
         }
         jvmTest {
