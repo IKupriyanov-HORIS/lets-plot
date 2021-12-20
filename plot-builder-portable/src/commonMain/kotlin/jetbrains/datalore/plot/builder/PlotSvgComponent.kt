@@ -14,6 +14,7 @@ import jetbrains.datalore.base.registration.Registration
 import jetbrains.datalore.base.values.Color
 import jetbrains.datalore.base.values.Colors
 import jetbrains.datalore.base.values.SomeFig
+import jetbrains.datalore.plot.FeatureSwitch.LABELS_DEBUG_DRAWING
 import jetbrains.datalore.plot.FeatureSwitch.PLOT_DEBUG_DRAWING
 import jetbrains.datalore.plot.base.render.svg.SvgComponent
 import jetbrains.datalore.plot.base.render.svg.TextLabel
@@ -26,6 +27,7 @@ import jetbrains.datalore.plot.builder.interact.PlotInteractor
 import jetbrains.datalore.plot.builder.interact.PlotTooltipBounds
 import jetbrains.datalore.plot.builder.layout.*
 import jetbrains.datalore.plot.builder.layout.PlotLayoutUtil.addTitlesAndLegends
+import jetbrains.datalore.plot.builder.layout.PlotLayoutUtil.axisTitleDimensions
 import jetbrains.datalore.plot.builder.layout.PlotLayoutUtil.axisTitleSizeDelta
 import jetbrains.datalore.plot.builder.layout.PlotLayoutUtil.legendBlockLeftTopDelta
 import jetbrains.datalore.plot.builder.layout.PlotLayoutUtil.liveMapBounds
@@ -284,7 +286,7 @@ class PlotSvgComponent constructor(
             titleLabel.setHorizontalAnchor(HorizontalAnchor.LEFT)
             titleLabel.setVerticalAnchor(VerticalAnchor.CENTER)
 
-            val titleSize = PlotLayoutUtil.titleDimensions(title)
+            val titleSize = PlotLayoutUtil.titleDimensions(title, useLetterTypes = true)
             val titleBounds = DoubleRectangle(
                 geomAreaBounds.left, plotOuterBounds.top,
                 titleSize.x, titleSize.y
@@ -295,6 +297,13 @@ class PlotSvgComponent constructor(
             @Suppress("ConstantConditionIf")
             if (DEBUG_DRAWING) {
                 drawDebugRect(titleBounds, Color.BLUE)
+            } else if (LABELS_DEBUG_DRAWING) {
+                val oldTitleSize = PlotLayoutUtil.titleDimensions(title, useLetterTypes = false)
+                drawDebugRect(
+                    DoubleRectangle(geomAreaBounds.left, plotOuterBounds.top, oldTitleSize.x, oldTitleSize.y),
+                    Color.GREEN
+                )
+                drawDebugRect(titleBounds, Color.MAGENTA)
             }
         }
 
@@ -406,6 +415,16 @@ class PlotSvgComponent constructor(
 
         parent.children().add(titleElement)
         add(parent)
+
+        if (orientation.isHorizontal && LABELS_DEBUG_DRAWING) {
+            val oldTextSize = axisTitleDimensions(text, useLetterTypes = false)
+            val oldRect = DoubleRectangle(titleLocation.subtract(DoubleVector(oldTextSize.x / 2, 0.0)), oldTextSize)
+            drawDebugRect(oldRect, Color.GREEN)
+
+            val textSize = axisTitleDimensions(text, useLetterTypes = true)
+            val rect = DoubleRectangle(titleLocation.subtract(DoubleVector(textSize.x / 2, 0.0)), textSize)
+            drawDebugRect(rect, Color.MAGENTA)
+        }
     }
 
 

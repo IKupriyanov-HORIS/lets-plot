@@ -55,6 +55,32 @@ class LabelMetrics : LabelSpec,
         } else width
     }
 
+    enum class LetterCategory(val value: Double) {
+        NARROW(0.25),
+        WIDE(0.67),
+        NORMAL(0.6);
+
+        companion object {
+            private fun getLetterCategory(letter: Char): LetterCategory {
+                return when (letter) {
+                    'i', 'j', 'l', 't',
+                    '(', ')', '.', ',', '\'',
+                    'I', 'J' -> NARROW
+                    'm', 'w', in 'A'..'Z' -> WIDE
+                    else -> NORMAL
+                }
+            }
+
+            fun getLetterRatio(letter: Char): Double {
+                return getLetterCategory(letter).value
+            }
+        }
+    }
+
+    override fun width(label: String): Double {
+        return label.map(LetterCategory.Companion::getLetterRatio).sum() * fontSize
+    }
+
     override fun height(): Double {
         return fontSize + 2 * LABEL_PADDING
     }

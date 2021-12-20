@@ -20,26 +20,26 @@ internal object PlotLayoutUtil {
     private val LIVE_MAP_PLOT_PADDING = DoubleVector(10.0, 0.0)
     private val LIVE_MAP_PLOT_MARGIN = DoubleVector(10.0, 10.0)
 
-    fun titleDimensions(text: String): DoubleVector {
+    fun titleDimensions(text: String, useLetterTypes: Boolean): DoubleVector {
         if (text.isEmpty()) {
             return DoubleVector.ZERO
         }
 
         val labelSpec = PlotLabelSpec.PLOT_TITLE
         return DoubleVector(
-            labelSpec.width(text.length),
+            if (useLetterTypes) labelSpec.width(text) else labelSpec.width(text.length),
             labelSpec.height() + 2 * TITLE_V_MARGIN
         )
     }
 
-    private fun axisTitleDimensions(text: String): DoubleVector {
+    fun axisTitleDimensions(text: String, useLetterTypes: Boolean): DoubleVector {
         if (text.isEmpty()) {
             return DoubleVector.ZERO
         }
 
         val labelSpec = PlotLabelSpec.AXIS_TITLE
         return DoubleVector(
-            labelSpec.width(text.length),
+            if (useLetterTypes) labelSpec.width(text) else labelSpec.width(text.length),
             labelSpec.height()
         )
     }
@@ -125,7 +125,7 @@ internal object PlotLayoutUtil {
 
     fun titleSizeDelta(title: String?): DoubleVector {
         return if (title != null) {
-            val titleSize = titleDimensions(title)
+            val titleSize = titleDimensions(title, useLetterTypes = true)
             DoubleVector(0.0, titleSize.y)
         } else {
             DoubleVector.ZERO
@@ -147,7 +147,7 @@ internal object PlotLayoutUtil {
 
     private fun axisTitleThickness(title: String?): Double {
         if (title == null) return 0.0
-        val titleSize = axisTitleDimensions(title)
+        val titleSize = axisTitleDimensions(title, useLetterTypes = true)
         return titleSize.y + AXIS_TITLE_OUTER_MARGIN + AXIS_TITLE_INNER_MARGIN
     }
 
