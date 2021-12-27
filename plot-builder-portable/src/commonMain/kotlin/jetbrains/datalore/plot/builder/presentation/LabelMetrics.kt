@@ -56,17 +56,19 @@ class LabelMetrics : LabelSpec,
     }
 
     enum class LetterCategory(val value: Double) {
-        NARROW(0.25),
-        WIDE(0.67),
-        NORMAL(0.6);
+        NARROW(0.3),
+        NORMAL(0.67),
+        WIDE(0.8),
+        EXTRA_WIDE(0.98);
 
         companion object {
             private fun getLetterCategory(letter: Char): LetterCategory {
                 return when (letter) {
-                    'i', 'j', 'l', 't',
+                    'i', 'j', 'l',
                     '(', ')', '.', ',', '\'',
-                    'I', 'J' -> NARROW
-                    'm', 'w', in 'A'..'Z' -> WIDE
+                    'I'-> NARROW
+                    'm', 'M', 'W' -> EXTRA_WIDE
+                    'w', in 'A'..'Z', in '0'..'9' -> WIDE
                     else -> NORMAL
                 }
             }
