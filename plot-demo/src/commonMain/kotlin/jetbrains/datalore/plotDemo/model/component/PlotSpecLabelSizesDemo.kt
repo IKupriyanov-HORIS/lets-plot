@@ -17,7 +17,7 @@ import jetbrains.datalore.vis.svg.SvgUtils
 
 class PlotSpecLabelSizesDemo : SimpleDemoBase(DEMO_BOX_SIZE) {
     companion object {
-        private val DEMO_BOX_SIZE = DoubleVector(300.0, 800.0)
+        private val DEMO_BOX_SIZE = DoubleVector(450.0, 800.0)
 
         private fun createTextLabel(spec: LabelSpec): TextLabel {
             val label = TextLabel(spec.text)
@@ -53,8 +53,12 @@ class PlotSpecLabelSizesDemo : SimpleDemoBase(DEMO_BOX_SIZE) {
     private fun createModel(plotLabelSpec: PlotLabelSpec, titles: List<String>): GroupComponent {
         val groupComponent = GroupComponent()
 
-        val x = 10.0
+        val x = 120.0
         var y = 20.0
+
+        val nameSpecElement = TextLabel(labelSpecToString(plotLabelSpec)).rootGroup
+        SvgUtils.transformTranslate(nameSpecElement, 10.0, y)
+        groupComponent.add(nameSpecElement)
 
         titles
             .map { title -> LabelSpec(title, plotLabelSpec) }
@@ -98,6 +102,17 @@ class PlotSpecLabelSizesDemo : SimpleDemoBase(DEMO_BOX_SIZE) {
             },
             spec.plotLabelSpec.height()
         )
+    }
+
+    private fun labelSpecToString(plotLabelSpec: PlotLabelSpec): String {
+        return when (plotLabelSpec) {
+            PlotLabelSpec.PLOT_TITLE -> "PLOT_TITLE"
+            PlotLabelSpec.AXIS_TICK -> "AXIS_TICK"
+            PlotLabelSpec.AXIS_TICK_SMALL -> "AXIS_TICK_SMALL"
+            PlotLabelSpec.AXIS_TITLE -> "AXIS_TITLE"
+            PlotLabelSpec.LEGEND_TITLE -> "LEGEND_TITLE"
+            PlotLabelSpec.LEGEND_ITEM -> "LEGEND_ITEM"
+        }
     }
 
     internal class LabelSpec(
