@@ -17,8 +17,12 @@ import jetbrains.livemap.geometry.ScreenGeometryComponent
 import jetbrains.livemap.mapengine.placement.ScreenLoopComponent
 
 class PathLocatorHelper : LocatorHelper {
-    override fun getColor(target: EcsEntity): Color? {
+    override fun getMainColor(target: EcsEntity): Color? {
         return target.get<ChartElementComponent>().strokeColor
+    }
+
+    override fun getColors(target: EcsEntity): List<Color> {
+        return target.get<ChartElementComponent>().colors
     }
 
     override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity): Boolean {

@@ -101,6 +101,7 @@ class PathBuilder(
                         strokeColor = this@PathBuilder.strokeColor
                         strokeWidth = this@PathBuilder.strokeWidth
                         lineDash = this@PathBuilder.lineDash.toDoubleArray()
+                        colors = listOf(this@PathBuilder.strokeColor)
                     }
                     +WorldOriginComponent(bbox.origin)
                     +WorldGeometryComponent().apply { geometry = coord }

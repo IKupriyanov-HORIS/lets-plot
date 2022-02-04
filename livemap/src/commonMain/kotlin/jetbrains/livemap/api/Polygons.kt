@@ -79,6 +79,7 @@ class PolygonsBuilder(
     var strokeColor: Color = Color.BLACK
     var strokeWidth: Double = 0.0
     var fillColor: Color = Color.GREEN
+    var mappedColors: List<Color> = emptyList()
 
     var multiPolygon: MultiPolygon<LonLat>? = null
 
@@ -112,6 +113,7 @@ class PolygonsBuilder(
                     fillColor = this@PolygonsBuilder.fillColor
                     strokeColor = this@PolygonsBuilder.strokeColor
                     strokeWidth = this@PolygonsBuilder.strokeWidth
+                    colors = this@PolygonsBuilder.mappedColors
                 }
                 + WorldOriginComponent(bbox.origin)
                 + WorldGeometryComponent().apply { this.geometry = geometry }

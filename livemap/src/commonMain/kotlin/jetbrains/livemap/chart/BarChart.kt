@@ -88,7 +88,8 @@ object BarChart {
                         return SearchResult(
                             target.get<IndexComponent>().layerIndex,
                             index = column.index,
-                            color = column.color
+                            mainColor = column.color,
+                            colors = listOf(column.color)
                         )
                     }
                 }
@@ -98,7 +99,8 @@ object BarChart {
         }
 
         override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity) = throw NotImplementedError()
-        override fun getColor(target: EcsEntity) = throw NotImplementedError()
+        override fun getMainColor(target: EcsEntity) = throw NotImplementedError()
+        override fun getColors(target: EcsEntity) = throw NotImplementedError()
 
         companion object {
             val LOCATABLE_COMPONENTS = listOf(SymbolComponent::class, ScreenLoopComponent::class)

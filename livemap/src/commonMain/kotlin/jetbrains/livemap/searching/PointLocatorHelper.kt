@@ -16,8 +16,12 @@ import jetbrains.livemap.searching.LocatorUtil.distance
 
 class PointLocatorHelper : LocatorHelper {
 
-    override fun getColor(target: EcsEntity): Color? {
+    override fun getMainColor(target: EcsEntity): Color? {
         return target.get<ChartElementComponent>().run { fillColor ?: strokeColor }
+    }
+
+    override fun getColors(target: EcsEntity): List<Color> {
+        return target.get<ChartElementComponent>().colors
     }
 
     override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity): Boolean {

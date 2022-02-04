@@ -13,6 +13,7 @@ class ChartElementComponent : EcsComponent {
     var fillColor: Color? = null
     var strokeColor: Color? = null
     var lineDash: DoubleArray? = null
+    var colors: List<Color> = emptyList()
 
     var sizeScalingRange: ClosedRange<Int>? = null
     var alphaScalingEnabled: Boolean = false

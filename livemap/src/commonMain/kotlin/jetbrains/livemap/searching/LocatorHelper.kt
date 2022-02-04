@@ -12,14 +12,16 @@ import jetbrains.livemap.core.ecs.EcsEntity
 
 interface LocatorHelper {
     fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity): Boolean
-    fun getColor(target: EcsEntity): Color?
+    fun getMainColor(target: EcsEntity): Color?
+    fun getColors(target: EcsEntity): List<Color>
 
     fun search(coord: Vec<Client>, target: EcsEntity): SearchResult? {
         if (isCoordinateInTarget(coord, target)) {
             return SearchResult(
                 layerIndex = target.get<IndexComponent>().layerIndex,
                 index = target.get<IndexComponent>().index,
-                color = target.get<LocatorComponent>().locatorHelper.getColor(target)
+                mainColor = target.get<LocatorComponent>().locatorHelper.getMainColor(target),
+                colors = target.get<LocatorComponent>().locatorHelper.getColors(target)
             )
         }
 
