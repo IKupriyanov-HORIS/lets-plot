@@ -5,6 +5,7 @@
 
 package jetbrains.datalore.plot.livemap
 
+import jetbrains.datalore.base.values.Color
 import jetbrains.datalore.plot.base.Aes
 import jetbrains.datalore.plot.base.GeomKind.*
 import jetbrains.datalore.plot.base.aes.AestheticsUtil
@@ -71,7 +72,17 @@ object LayerConverter {
                 layerKind,
                 dataPointLiveMapAesthetics,
                 sizeScalingRange,
-                alphaScalingEnabled = sizeScalingRange.last != 0
+                alphaScalingEnabled = sizeScalingRange.last != 0,
+                colorsByDataPoint = getMappedColors(layer.mappedAes)
+            )
+        }
+    }
+
+    private fun getMappedColors(mappedAes: Set<Aes<*>>): (DataPointLiveMapAesthetics) -> List<Color> {
+        return { p ->
+            listOfNotNull(
+                p.fillColor.takeIf { mappedAes.contains(Aes.FILL) },
+                p.strokeColor.takeIf { mappedAes.contains(Aes.COLOR) },
             )
         }
     }
@@ -82,6 +93,7 @@ object LayerConverter {
         liveMapDataPoints: List<DataPointLiveMapAesthetics>,
         sizeScalingRange: IntRange?,
         alphaScalingEnabled: Boolean,
+        colorsByDataPoint: (DataPointLiveMapAesthetics) -> List<Color>
     ): LayersBuilder.() -> Unit = {
         when (layerKind) {
             MapLayerKind.POINT -> points {
@@ -99,6 +111,7 @@ object LayerConverter {
                         fillColor = it.fillColor
                         strokeColor = it.strokeColor
                         strokeWidth = 1.0
+                        mappedColors = colorsByDataPoint(it)
                     }
                 }
             }
@@ -116,6 +129,7 @@ object LayerConverter {
                         fillColor = it.fillColor
                         strokeColor = it.strokeColor
                         strokeWidth = AestheticsUtil.strokeWidth(it.myP)
+                        mappedColors = colorsByDataPoint(it)
                     }
                 }
             }
