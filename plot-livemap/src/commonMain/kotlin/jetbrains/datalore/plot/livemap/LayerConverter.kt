@@ -111,7 +111,7 @@ object LayerConverter {
                         fillColor = it.fillColor
                         strokeColor = it.strokeColor
                         strokeWidth = 1.0
-                        mappedColors = colorsByDataPoint(it)
+                        tooltipColors = colorsByDataPoint(it)
                     }
                 }
             }
@@ -129,7 +129,7 @@ object LayerConverter {
                         fillColor = it.fillColor
                         strokeColor = it.strokeColor
                         strokeWidth = AestheticsUtil.strokeWidth(it.myP)
-                        mappedColors = colorsByDataPoint(it)
+                        tooltipColors = colorsByDataPoint(it)
                     }
                 }
             }

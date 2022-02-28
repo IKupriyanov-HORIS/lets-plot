@@ -15,13 +15,8 @@ import jetbrains.livemap.geometry.ScreenGeometryComponent
 import jetbrains.livemap.mapengine.placement.ScreenLoopComponent
 
 class PolygonLocatorHelper : LocatorHelper {
-
-    override fun getMainColor(target: EcsEntity): Color? {
-        return target.get<ChartElementComponent>().fillColor
-    }
-
     override fun getColors(target: EcsEntity): List<Color> {
-        return target.get<ChartElementComponent>().colors
+        return target.get<ChartElementComponent>().tooltipColors
     }
 
     override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity): Boolean {

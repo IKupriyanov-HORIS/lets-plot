@@ -7,4 +7,4 @@ package jetbrains.livemap.searching
 
 import jetbrains.datalore.base.values.Color
 
-data class SearchResult(val layerIndex: Int, val index: Int, val mainColor: Color?, val colors: List<Color>)
+data class SearchResult(val layerIndex: Int, val index: Int, val tooltipColors: List<Color>)

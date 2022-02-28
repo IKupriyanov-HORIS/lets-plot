@@ -55,17 +55,6 @@ class TooltipSpecFactoryTest : jetbrains.datalore.plot.builder.interact.TooltipS
     }
 
     @Test
-    fun whenFillColorProvided_ShouldUseItForTooltip() {
-        addMappedData(variable().value("sedan").mapping(AES_WIDTH))
-
-        createTooltipSpecs(geomTargetBuilder.withPathHitShape()
-                .withFill(Color.RED)
-                .build())
-
-        assertFill(Color.RED)
-    }
-
-    @Test
     fun withLayoutHint_ShouldUseHintColor() {
         val widthMapping = addMappedData(variable().name("type").value("sedan").mapping(AES_WIDTH))
 

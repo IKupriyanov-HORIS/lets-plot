@@ -15,13 +15,8 @@ import jetbrains.livemap.mapengine.placement.ScreenLoopComponent
 import jetbrains.livemap.searching.LocatorUtil.distance
 
 class PointLocatorHelper : LocatorHelper {
-
-    override fun getMainColor(target: EcsEntity): Color? {
-        return target.get<ChartElementComponent>().run { fillColor ?: strokeColor }
-    }
-
     override fun getColors(target: EcsEntity): List<Color> {
-        return target.get<ChartElementComponent>().colors
+        return target.get<ChartElementComponent>().tooltipColors
     }
 
     override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity): Boolean {

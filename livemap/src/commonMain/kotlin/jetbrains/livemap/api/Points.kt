@@ -71,7 +71,7 @@ class PointBuilder(
     var label: String = ""
     var shape: Int = 1
 
-    var mappedColors: List<Color> = emptyList()
+    var tooltipColors: List<Color> = emptyList()
 
     fun build(nonInteractive: Boolean = false): EcsEntity {
 
@@ -94,24 +94,24 @@ class PointBuilder(
                         in 1..14 -> {
                             strokeColor = this@PointBuilder.strokeColor
                             strokeWidth = this@PointBuilder.strokeWidth
-                            colors = this@PointBuilder.mappedColors
+                            tooltipColors = this@PointBuilder.tooltipColors
                         }
                         in 15..18, 20 -> {
                             fillColor = this@PointBuilder.strokeColor
                             strokeWidth = Double.NaN
-                            colors = this@PointBuilder.mappedColors
+                            tooltipColors = this@PointBuilder.tooltipColors
                         }
                         19 -> {
                             fillColor = this@PointBuilder.strokeColor
                             strokeColor = this@PointBuilder.strokeColor
                             strokeWidth = this@PointBuilder.strokeWidth
-                            colors = this@PointBuilder.mappedColors
+                            tooltipColors = this@PointBuilder.tooltipColors
                         }
                         in 21..25 -> {
                             fillColor = this@PointBuilder.fillColor
                             strokeColor = this@PointBuilder.strokeColor
                             strokeWidth = this@PointBuilder.strokeWidth
-                            colors = this@PointBuilder.mappedColors
+                            tooltipColors = this@PointBuilder.tooltipColors
                         }
                         else -> error("Not supported shape: ${this@PointBuilder.shape}")
                     }

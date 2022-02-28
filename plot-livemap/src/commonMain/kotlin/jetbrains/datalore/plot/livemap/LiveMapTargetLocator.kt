@@ -34,8 +34,8 @@ class LiveMapTargetLocator(
                            hitIndex = it.index,
                            tipLayoutHint = cursorTooltip(
                                coord,
-                               it.mainColor,
-                               colors = it.colors
+                               mainColor = it.tooltipColors.firstOrNull(),
+                               colors = it.tooltipColors
                            ),
                            aesTipLayoutHints = emptyMap()
                        )

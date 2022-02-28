@@ -82,7 +82,7 @@ class TextBuilder(
                     fillColor = this@TextBuilder.fillColor
                     strokeColor = this@TextBuilder.strokeColor
                     strokeWidth = this@TextBuilder.strokeWidth
-                    colors = listOf(this@TextBuilder.strokeColor)
+                    tooltipColors = listOf(this@TextBuilder.strokeColor)
                 }
                 + TextSpecComponent().apply { this.textSpec = textSpec }
                 + WorldOriginComponent(worldPoint)

@@ -6,6 +6,7 @@
 package jetbrains.datalore.plot.builder.interact
 
 import jetbrains.datalore.base.geometry.DoubleVector
+import jetbrains.datalore.base.values.Color
 import jetbrains.datalore.plot.base.Aes
 import jetbrains.datalore.plot.base.interact.ContextualMapping
 import jetbrains.datalore.plot.base.interact.GeomTarget
@@ -97,17 +98,13 @@ class TooltipSpecFactory(
         private fun generalTooltipSpec(): List<TooltipSpec> {
             val generalDataPoints = generalDataPoints()
             val generalLines = generalDataPoints.map { TooltipSpec.Line.withLabelAndValue(it.label, it.value) }
-            val aesHintColors = hintColors()
-                .filterKeys { aes -> aes in generalDataPoints.map(DataPoint::aes) }
-            val colorFromHints = aesHintColors[Aes.Y] ?: aesHintColors.mapNotNull { it.value }.lastOrNull()
-            val fill = colorFromHints ?: tipLayoutHint().mainColor!!
             return if (generalLines.isNotEmpty()) {
                 listOf(
                     TooltipSpec(
                         tipLayoutHint(),
                         lines = generalLines,
                         title = myTooltipTitle,
-                        fill = fill,
+                        fill = Color.WHITE,
                         isOutlier = false,
                         anchor = myTooltipAnchor,
                         minWidth = myTooltipMinWidth,

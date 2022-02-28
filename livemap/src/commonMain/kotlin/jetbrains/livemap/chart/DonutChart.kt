@@ -103,8 +103,7 @@ object DonutChart {
                             return SearchResult(
                                 layerIndex = target.get<IndexComponent>().layerIndex,
                                 index = index,
-                                mainColor = color,
-                                colors = listOf(color)
+                                tooltipColors = listOf(color)
                             )
                         }
                     }
@@ -114,7 +113,6 @@ object DonutChart {
         }
 
         override fun isCoordinateInTarget(coord: Vec<Client>, target: EcsEntity) = throw NotImplementedError()
-        override fun getMainColor(target: EcsEntity) = throw NotImplementedError()
         override fun getColors(target: EcsEntity) = throw NotImplementedError()
 
         private fun isCoordinateInPieSector(coord: Vec<Client>, origin: Vec<Client>, radius: Double, startAngle: Double, endAngle: Double): Boolean {
