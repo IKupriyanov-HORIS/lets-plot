@@ -139,7 +139,7 @@ open class Diagnostics {
                     .getEntitiesById(dirtyLayers)
                     .map { it.get<CanvasLayerComponent>().canvasLayer }
                     .toSet()
-                    .intersect(registry.getSingleton<LayersOrderComponent>().canvasLayers)
+                    .intersect(registry.getSingleton<LayersOrderComponent>().canvasLayers.toSet())
                     .joinToString(transform = CanvasLayer::name)
 
                 debugService.setValue(DIRTY_LAYERS, "Dirty layers: $dirtyLayers")

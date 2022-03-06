@@ -27,7 +27,7 @@ fun LayersBuilder.bars(block: Bars.() -> Unit) {
     val layerEntity = myComponentManager
         .createEntity("map_layer_bar")
         .addComponents {
-            + layerManager.addLayer("livemap_bar", LayerGroup.FEATURES)
+            + paintManager.addLayer("livemap_bar", LayerGroup.FEATURES)
             + LayerEntitiesComponent()
         }
 

@@ -12,6 +12,7 @@ class ZoomFractionChangedComponent : EcsComponent
 // Zoom changed to a value and fraction part is zero, e.g. 1.4 -> 2.0, or 1.3 -> 1.0
 class ZoomLevelChangedComponent : EcsComponent
 
+class CenterChangingComponent : EcsComponent
 class CenterChangedComponent : EcsComponent
 
 class CameraListenerComponent : EcsComponent

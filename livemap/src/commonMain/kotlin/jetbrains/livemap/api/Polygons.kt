@@ -47,7 +47,7 @@ fun LayersBuilder.polygons(block: Polygons.() -> Unit) {
     val layerEntity =  myComponentManager
         .createEntity("map_layer_polygon")
         .addComponents {
-            + layerManager.addLayer("geom_polygon", LayerGroup.FEATURES)
+            + paintManager.addLayer("geom_polygon", LayerGroup.FEATURES)
             + LayerEntitiesComponent()
         }
 

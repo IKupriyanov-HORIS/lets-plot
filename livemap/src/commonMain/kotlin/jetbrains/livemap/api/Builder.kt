@@ -27,7 +27,7 @@ import jetbrains.livemap.core.ecs.EcsComponentManager
 import jetbrains.livemap.core.ecs.EcsEntity
 import jetbrains.livemap.core.ecs.addComponents
 import jetbrains.livemap.core.graphics.TextMeasurer
-import jetbrains.livemap.core.layers.LayerManager
+import jetbrains.livemap.core.layers.PaintManager
 import jetbrains.livemap.core.layers.ParentLayerComponent
 import jetbrains.livemap.core.projections.GeoProjection
 import jetbrains.livemap.core.projections.Projections
@@ -116,7 +116,7 @@ class LiveMapBuilder {
 @LiveMapDsl
 class LayersBuilder(
     val myComponentManager: EcsComponentManager,
-    val layerManager: LayerManager,
+    val paintManager: PaintManager,
     val mapProjection: MapProjection,
     val textMeasurer: TextMeasurer
 )

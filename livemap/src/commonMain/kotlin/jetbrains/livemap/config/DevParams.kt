@@ -30,8 +30,7 @@ class DevParams(private val devParams: Map<*, *>) {
                 RenderTarget.OWN_SCREEN_CANVAS,
                 listOf(
                     Pair("offscreen_layers", RenderTarget.OWN_OFFSCREEN_CANVAS),
-                    Pair("screen_layers", RenderTarget.OWN_SCREEN_CANVAS),
-                    Pair("single_layer", RenderTarget.SINGLE_SCREEN_CANVAS)
+                    Pair("screen_layers", RenderTarget.OWN_SCREEN_CANVAS)
                 )
             )
 

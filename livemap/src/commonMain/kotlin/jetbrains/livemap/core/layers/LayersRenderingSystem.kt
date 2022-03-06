@@ -5,37 +5,47 @@
 
 package jetbrains.livemap.core.layers
 
+import jetbrains.datalore.base.typedGeometry.Vec
+import jetbrains.livemap.Client
+import jetbrains.livemap.World
 import jetbrains.livemap.core.ecs.AbstractSystem
 import jetbrains.livemap.core.ecs.EcsComponentManager
-import jetbrains.livemap.core.ecs.EcsContext
 import jetbrains.livemap.core.ecs.EcsEntity
+import jetbrains.livemap.mapengine.LiveMapContext
 
 class LayersRenderingSystem internal constructor(
     componentManager: EcsComponentManager,
-    private val myRenderingStrategy: RenderingStrategy
-) : AbstractSystem<EcsContext>(componentManager) {
-    private val myDirtyLayers = ArrayList<Int>()
+    private val myPaintManager: PaintManager,
+) : AbstractSystem<LiveMapContext>(componentManager) {
+    private var myDirtyLayers: List<Int> = emptyList()
+    private var movingStartPosition: Vec<World>? = null
+    private var lastDragDelta: Vec<Client>? = null
 
     val dirtyLayers: List<Int>
         get() = myDirtyLayers
 
-    override fun updateImpl(context: EcsContext, dt: Double) {
-        val canvasLayers = getSingleton<LayersOrderComponent>().canvasLayers
+    var updated: Boolean = true
+        private set
 
-        val layerEntities = getEntities(CanvasLayerComponent::class).toList()
-        val dirtyEntities = getEntities(DirtyCanvasLayerComponent::class).toList()
+    override fun updateImpl(context: LiveMapContext, dt: Double) {
+        updated = false
 
-        myDirtyLayers.clear()
-        dirtyEntities.forEach { myDirtyLayers.add(it.id) }
+        if (context.camera.panDistance != null) {
+            val d = context.camera.panDistance!!
+            if (lastDragDelta != d) {
+                lastDragDelta = d
+                myPaintManager.pan(d)
+                updated = true
+            }
+        } else {
+            movingStartPosition = null
+            val canvasLayers = getSingleton<LayersOrderComponent>().canvasLayers
+            val dirtyEntities = getEntities<DirtyCanvasLayerComponent>().toList()
 
-        myRenderingStrategy.render(canvasLayers, layerEntities, dirtyEntities)
-    }
+            myPaintManager.repaint(canvasLayers, dirtyEntities)
 
-    interface RenderingStrategy {
-        fun render(
-            renderingOrder: List<CanvasLayer>,
-            layerEntities: Collection<EcsEntity>,
-            dirtyLayerEntities: Collection<EcsEntity>
-        )
+            myDirtyLayers = dirtyEntities.map(EcsEntity::id)
+            updated = dirtyEntities.isNotEmpty()
+        }
     }
 }

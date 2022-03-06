@@ -15,8 +15,8 @@ class GroupedLayers {
         orderedLayers = LayerGroup.values().flatMap { myGroupedLayers[it] ?: emptyList<CanvasLayer>() }
     }
 
-    fun remove(group: LayerGroup, layer: CanvasLayer) {
-        myGroupedLayers[group]?.remove(layer)
+    fun remove(layer: CanvasLayer) {
+        myGroupedLayers[layer.group]?.remove(layer)
     }
 }
 

@@ -20,7 +20,7 @@ import jetbrains.livemap.core.input.InputMouseEvent
 import jetbrains.livemap.core.input.MouseInputComponent
 import jetbrains.livemap.core.layers.CanvasLayerComponent
 import jetbrains.livemap.core.layers.LayerGroup
-import jetbrains.livemap.core.layers.LayerManager
+import jetbrains.livemap.core.layers.PaintManager
 import jetbrains.livemap.makegeometrywidget.MakeGeometryWidgetComponent
 import jetbrains.livemap.makegeometrywidget.createFormattedGeometryString
 import jetbrains.livemap.mapengine.LayerEntitiesComponent
@@ -42,7 +42,7 @@ class LiveMapUiSystem(
     private val myResourceManager: ResourceManager,
     componentManager: EcsComponentManager,
     private val myMapLocationConsumer: (DoubleRectangle) -> Unit,
-    private val myLayerManager: LayerManager,
+    private val myPaintManager: PaintManager,
     private val myAttribution: String?,
     private val showCoordPickTools: Boolean,
     private val showResetPositionAction: Boolean,
@@ -75,7 +75,7 @@ class LiveMapUiSystem(
             .run(::getEntitiesById)
             .forEach(EcsEntity::remove)
 
-        myLayerManager.removeLayer(LayerGroup.FEATURES, widget.get<CanvasLayerComponent>().canvasLayer)
+        myPaintManager.removeLayer(widget.get<CanvasLayerComponent>().canvasLayer)
 
         widget.remove()
     }
@@ -83,7 +83,7 @@ class LiveMapUiSystem(
     private fun activateCreateWidget() {
         createEntity("make_geometry_widget")
             .addComponents {
-                +myLayerManager.addLayer("make_geometry_layer", LayerGroup.FEATURES)
+                +myPaintManager.addLayer("make_geometry_layer", LayerGroup.FEATURES)
                 +LayerEntitiesComponent()
                 +MouseInputComponent()
                 +MakeGeometryWidgetComponent()

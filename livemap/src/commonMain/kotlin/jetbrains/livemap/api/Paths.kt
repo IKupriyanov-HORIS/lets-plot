@@ -45,7 +45,7 @@ fun LayersBuilder.paths(block: Paths.() -> Unit) {
     val layerEntity = myComponentManager
         .createEntity("map_layer_path")
         .addComponents {
-            +layerManager.addLayer("geom_path", LayerGroup.FEATURES)
+            +paintManager.addLayer("geom_path", LayerGroup.FEATURES)
             +LayerEntitiesComponent()
         }
 
