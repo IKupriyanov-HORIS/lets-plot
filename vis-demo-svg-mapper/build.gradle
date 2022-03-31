@@ -5,6 +5,7 @@ plugins {
 
 kotlin {
     jvm("jvmBatik")
+    jvm("jvmCompose")
     jvm("jvmJfx")
     jvm("jvmBrowser")   // generates index.html and opens it in browser
     js(LEGACY) {
@@ -53,6 +54,13 @@ kotlin {
                 implementation project(':vis-demo-common-jfx')
             }
         }
+        jvmComposeMain {
+            dependsOn allJvm
+            dependencies {
+                implementation project(":vis-svg-mapper-compose")
+                implementation project(':vis-demo-common-compose')
+            }
+        }
         jvmBrowserMain {
             dependsOn allJvm
             dependencies {
@@ -74,6 +82,7 @@ idea {
             packagePrefix["src/jvmMain/kotlin"] = "jetbrains.datalore"
             packagePrefix["src/jvmJfxMain/kotlin"] = "jetbrains.datalore"
             packagePrefix["src/jvmBatikMain/kotlin"] = "jetbrains.datalore"
+            packagePrefix["src/jvmComposeMain/kotlin"] = "jetbrains.datalore"
             packagePrefix["src/jvmBrowserMain/kotlin"] = "jetbrains.datalore"
         }
     }

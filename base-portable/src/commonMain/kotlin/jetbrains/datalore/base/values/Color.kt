@@ -28,6 +28,10 @@ class Color @JvmOverloads constructor(
         return Color(red, green, blue, newAlpha)
     }
 
+    fun changeAlpha(newAlpha: Double): Color {
+        return changeAlpha((255 * newAlpha).toInt())
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true

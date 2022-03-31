@@ -46,6 +46,12 @@ def include_sources_letsPlotJvmBatik = [
         'vis-demo-common-batik',
 ]
 
+def include_sources_letsPlotJvmCompose = [
+        'vis-svg-mapper-compose',
+        'vis-swing-common',
+        'vis-demo-common',
+]
+
 def include_sources_letsPlotGIS = [
         'vis-canvas',
         'gis',
@@ -57,6 +63,7 @@ configurations {
     letsPlotJvmCommonSources
     letsPlotJvmJfxSources
     letsPlotJvmBatikSources
+    letsPlotJvmComposeSources
     letsPlotGISSources
 }
 
@@ -118,6 +125,11 @@ allprojects {
     if (name in include_sources_letsPlotJvmBatik) {
         rootProject.dependencies {
             letsPlotJvmBatikSources files(sources_jar_path)
+        }
+    }
+    if (name in include_sources_letsPlotJvmCompose) {
+        rootProject.dependencies {
+            letsPlotJvmComposeSources files(sources_jar_path)
         }
     }
     if (name in include_sources_letsPlotGIS) {
